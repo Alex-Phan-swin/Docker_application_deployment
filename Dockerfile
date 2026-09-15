@@ -9,7 +9,7 @@ RUN pip install -r requirements.txt
 COPY app.py .
 
 ENV PORT=5000
-ENV APP_NAME='Grade Calculator'
+ENV APP_NAME='Student Grade Calculator'
 
 EXPOSE 5000
 
