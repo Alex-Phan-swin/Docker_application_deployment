@@ -1,4 +1,4 @@
-from flask import Flask 
+from flask import Flask, request 
 import os
 
 app = Flask(__name__)
@@ -69,6 +69,24 @@ def home():
     </body>
     </html>
     """
+@app.route('/calculate', methods=['POST'])
+def calculate():
+    name = request.form['name']
+    student_id = request.form['student_id']
+    assignment_mark = float(request.form['assignment'])
+    exam_mark = float(request.form['exam'])
+    total_score = (assignment_mark * 0.4) + (exam_mark * 0.6)
+
+    if total_score >= 80:
+        grade='HD'
+    elif total_score >= 70:
+        grade='D'
+    elif total_score >= 60:
+        grade='C'
+    elif total_score >= 50:
+        grade='P'
+    else:
+        grade='F'
 
 
 if __name__ == '__main__':
