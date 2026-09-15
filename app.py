@@ -69,6 +69,7 @@ def home():
     </body>
     </html>
     """
+
 @app.route('/calculate', methods=['POST'])
 def calculate():
     name = request.form['name']
@@ -88,6 +89,60 @@ def calculate():
     else:
         grade='F'
 
+    return f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>{APP_NAME}</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: 50px auto;
+                padding: 20px;
+                text-align: center;
+            }}
 
+            .result {{
+                border: 1px solid #ccc;
+                padding: 25px;
+                margin-top: 20px;
+            }}
+
+            a {{
+                display: block;
+                margin-top: 20px;
+            }}
+        </style>
+    </head>
+
+    <body>
+
+        <h1>{APP_NAME}</h1>
+
+        <div class="result">
+
+            <h2>Grade Result</h2>
+
+            <p><strong>Student:</strong> {name}</p>
+
+            <p><strong>Student ID:</strong> {student_id}</p>
+
+            <p><strong>Assignment:</strong> {assignment_mark}%</p>
+
+            <p><strong>Exam:</strong> {exam_mark}%</p>
+
+            <p><strong>Overall:</strong> {total_score:.1f}%</p>
+
+            <h2>Grade: {grade}</h2>
+
+        </div>
+
+        <a href="/">Calculate another grade</a>
+
+    </body>
+    </html>
+    """
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
